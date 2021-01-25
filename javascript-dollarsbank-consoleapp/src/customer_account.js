@@ -13,8 +13,6 @@ Customer.userId = prompt("User Id: ");
 Customer.securePin = prompt("Secure Pin: ")
 Customer.verifyPin = prompt("Verify Pin: ")
 Customer.initialDeposit = parseInt(prompt("Enter Initial Deposit in the format: 00.00: "))
-
-console.log(Customer); 
 }
 
 export var LogIn = function () {
@@ -31,7 +29,6 @@ export var LogIn = function () {
 export function BankAccount () {
     this.balance = Customer.initialDeposit;
     this.record = [];
-	
 }
 
 BankAccount.prototype.checkBalance = function() {
