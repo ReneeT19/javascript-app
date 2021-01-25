@@ -1,6 +1,6 @@
 import { createRequire } from 'module';
 import { Customer } from './customer_account.js';
-import {Account} from './customer_account.js';
+import {LogIn} from './customer_account.js';
 const require = createRequire(import.meta.url);
 const prompt = require('prompt-sync')({sigint: true});
 
@@ -12,7 +12,7 @@ export function greetingATM (choice) {
     switch(choice) {
         case "Transaction":
         case "1":
-            Account();
+            LogIn();
             break;
         case "Open New Account":
         case "2":
