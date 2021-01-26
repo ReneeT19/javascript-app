@@ -49,6 +49,11 @@ BankAccount.prototype.printTransactions = function(record) {
     this.record.push(record);
 };
 
+export function updatePin() {
+    const newPin = prompt("Update Pin: ");
+    return Customer.securePin = newPin;
+}
+
 
 
 // module.exports = Customer;

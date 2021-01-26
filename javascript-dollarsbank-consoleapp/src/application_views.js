@@ -1,6 +1,7 @@
 import { createRequire } from 'module';
 import { Customer } from "./customer_account.js";
 import {BankAccount} from './customer_account.js';
+import {updatePin} from './customer_account.js';
 
 const require = createRequire(import.meta.url);
 const prompt = require('prompt-sync')({sigint: true});
@@ -27,6 +28,7 @@ export function accountInfo (choice) {
         case "Update Pin":
         case "3":
             updatePin();
+            console.log(`Customer's new Pin is: ${Customer.securePin}`);
             break;
         case "Withdraw":
         case "4":
@@ -52,9 +54,6 @@ function printTransactions() {
  
 }
 
-function updatePin() {
-
-}
 
 
 
