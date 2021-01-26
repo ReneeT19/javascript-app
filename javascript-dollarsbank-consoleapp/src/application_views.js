@@ -32,12 +32,10 @@ export function accountInfo (choice) {
         case "Withdraw":
         case "4":
             account.withdraw();
-            // account.printTransactions();
             break;
         case "Deposit":
         case "5":
             account.deposit();
-            // account.printTransactions();
             break;
         default:
             console.log("Incorrect command. Please enter the numeric value or string corresponding with the available commands.")

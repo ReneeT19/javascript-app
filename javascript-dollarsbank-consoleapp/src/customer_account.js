@@ -9,10 +9,20 @@ export var Customer = function () {
 Customer.customerName = prompt("Customer name: ");
 Customer.customerAddress = prompt("Customer Address: ")
 Customer.contactNumber = prompt("Customer contact number: ")
-Customer.userId = prompt("User Id: ");
-Customer.securePin = prompt("Secure Pin: ")
-Customer.verifyPin = prompt("Verify Pin: ")
 Customer.initialDeposit = parseInt(prompt("Enter Initial Deposit in the format: 00.00: "))
+Customer.userId = prompt("User Id: ");
+let checking = true;
+while(checking) {
+Customer.securePin = prompt("Secure Pin: ")
+if(Customer.securePin.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/)) {
+    Customer.verifyPin = prompt("Verify Pin: ")
+    if(Customer.verifyPin == Customer.securePin) {
+        checking = false;
+    } else {console.log("Pin doesn't match.")}
+} else {
+    console.log("Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.")
+}
+}
 }
 
 export var LogIn = function () {
@@ -24,7 +34,6 @@ export var LogIn = function () {
         accountInfo();
     } else {console.log('Your User Id or Pin is incorrect.')}
 }
-
 
 export function BankAccount () {
     this.balance = Customer.initialDeposit;
@@ -79,8 +88,6 @@ export function updatePin() {
 }
 
 
-
-// module.exports = Customer;
 // properties = [
 //     {
 //         name: 'customer_name',
