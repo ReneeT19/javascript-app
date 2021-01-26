@@ -22,8 +22,7 @@ export function accountInfo (choice) {
             break;
         case "Print Transactions":
         case "2":
-            printTransactions();
-            console.log(`${account.record}`);
+            account.printTransactions();
             break;
         case "Update Pin":
         case "3":
@@ -33,12 +32,12 @@ export function accountInfo (choice) {
         case "Withdraw":
         case "4":
             account.withdraw();
-            account.printTransactions(record);
+            // account.printTransactions();
             break;
         case "Deposit":
         case "5":
             account.deposit();
-            account.printTransactions();
+            // account.printTransactions();
             break;
         default:
             console.log("Incorrect command. Please enter the numeric value or string corresponding with the available commands.")

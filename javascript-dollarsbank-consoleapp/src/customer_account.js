@@ -37,17 +37,41 @@ BankAccount.prototype.checkBalance = function() {
 
 BankAccount.prototype.deposit = function(amount) {
     amount = parseInt(prompt("Enter amount: "));
-    return this.balance += amount;
-}
+    this.balance += amount;
+    this.addTransaction(amount);
+    console.log(`Success! Your current balance is: ${this.balance}`);
+    return amount;
+};
 
 BankAccount.prototype.withdraw = function(amount) {
     amount = parseInt(prompt("Enter amount: "));
-    return this.balance -= amount;
-}
-
-BankAccount.prototype.printTransactions = function(record) {
-    this.record.push(record);
+    if(amount <= this.balance) {
+        this.balance -= amount;
+        this.addTransaction(amount);
+        console.log(`Success! Your current balance is: ${this.balance}`);
+        return amount;
+    } else {
+    console.log("Unsuccessful! Your current balance is insufficient.");
+    return this.balance;
+    }
 };
+
+BankAccount.prototype.printTransactions = function () {
+    this.record
+      .slice()
+      .reverse()
+      .forEach(function (value, index) {
+        if (index === 0) {
+          console.log("transactions history\n ");
+        }
+        console.log(value);
+      });
+  };
+
+  BankAccount.prototype.addTransaction = function (amount) {
+    let str = "transaction amount " + amount + " current balance: " + this.balance;
+    this.record.push(str);
+  };
 
 export function updatePin() {
     const newPin = prompt("Update Pin: ");
