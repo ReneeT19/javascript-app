@@ -10,11 +10,12 @@ export function accountInfo (choice) {
     var account = new BankAccount();
     let running = true;
     while(running) {
-    console.log("\x1b[37m","");
-    choice = prompt("Perform another transaction?");
-    if(choice == "y" || choice=="Y" || choice=="yes" || choice=="Yes" || choice=="YES") {
-    console.log('\x1b[36m%s\x1b[0m', "--------------" + "\n" + "Transaction Menu" + "\n" + "--------------")
-    choice = prompt('1> Account Balance Check 2> Print Transactions 3> Update Pin 4> Withdraw Amount 5> Deposit Amount');
+    console.log('\x1b[33m%s\x1b[0m',"Perform another transaction? (Yes/No)","\x1b[37m");
+    choice = prompt();
+    if(choice=="yes" || choice=="Yes" || choice=="YES") {
+    console.log('\x1b[36m%s\x1b[0m', "----------------" + "\n" + "Transaction Menu" + "\n" + "----------------")
+    console.log('1> Account Balance Check\n2> Print Transactions\n3> Update Pin\n4> Withdraw Amount\n5> Deposit Amount')
+    choice = prompt();
     switch(choice) {
         case "Account Balance Check":
         case "1":
@@ -38,7 +39,7 @@ export function accountInfo (choice) {
             account.deposit();
             break;
         default:
-            console.log("\x1b[31m","Incorrect command. Please enter the numeric value or string corresponding with the available commands.")
+            console.log("\x1b[31m","Incorrect command. Please enter the numeric value or string corresponding with the available commands.","\x1b[37m")
     }
 } else {
     console.log("\x1b[32m","You successfully logged out.")

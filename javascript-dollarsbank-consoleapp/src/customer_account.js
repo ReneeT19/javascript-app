@@ -12,7 +12,7 @@ while(checkName) {
     if(Customer.customerName.match(/^[a-zA-Z\s\-]+$/)) {
     checkName = false;
     } else {
-    console.log("\x1b[31m","Name must be only letters, spaces, or dashes")
+    console.log("\x1b[31m","Name must be only letters, spaces, or dashes","\x1b[37m")
     }
 }
 
@@ -24,18 +24,17 @@ while(checkNumber) {
     if(Customer.contactNumber.match(/^[0-9]+$/)) {
     checkNumber=false;
     } else {
-    console.log("\x1b[31m","You must enter numbers only."); 
+    console.log("\x1b[31m","You must enter numbers only.","\x1b[37m"); 
     }
 }
 
 let checkDposit = true;
 while(checkDposit){
-    Customer.initialDeposit = parseFloat(prompt("Enter Initial Deposit in the format: 00.00: "));
+    Customer.initialDeposit = parseFloat(prompt("Enter Initial Deposit (in the format: 00.00): "));
     if(/^[+-]?(?:\d*\.)?\d+$/.test(Customer.initialDeposit)){
     checkDposit = false;
     } else {
-    console.log('\x1b[31m','You must enter a number in the format: 00.00.')
-    console.log("\x1b[37m","");
+    console.log('\x1b[31m','You must enter a number in the format: 00.00.',"\x1b[37m")
     }
 }
 
@@ -49,9 +48,9 @@ while(checkPin) {
         if(Customer.verifyPin == Customer.securePin) {
         checkPin = false;
         console.log("\x1b[32m","New account created successfully!")
-        } else {console.log("\x1b[31m","Pin doesn't match.")}
+        } else {console.log("\x1b[31m","Pin doesn't match.","\x1b[37m")}
     } else {
-    console.log("\x1b[31m","Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.")
+    console.log("\x1b[31m","Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.","\x1b[37m")
     }
 }
 }
@@ -61,7 +60,7 @@ export var LogIn = function () {
     LogIn.securePin = prompt("Enter your securePin: ");
 
     if(LogIn.userId === Customer.userId && LogIn.securePin === Customer.securePin) {
-        console.log("\x1b[32m",'You logged in successfully!');
+        console.log("\x1b[32m",'You logged in successfully!\n');
         accountInfo();
     } else {console.log("\x1b[31m",'Your User Id or Pin is incorrect.')}
 }
@@ -91,7 +90,7 @@ BankAccount.prototype.withdraw = function(amount) {
         console.log("\x1b[32m",`Success! Your current balance is: ${this.balance}`);
         return amount;
     } else {
-    console.log("\x1b[31m","Unsuccessful! Your current balance is insufficient.");
+    console.log("\x1b[31m","Unsuccessful! Your current balance is insufficient.","\x1b[37m");
     return this.balance;
     }
 };
@@ -102,8 +101,7 @@ BankAccount.prototype.printTransactions = function () {
       .reverse()
       .forEach(function (value, index) {
         if (index === 0) {
-          console.log("\x1b[32m","Print transactions history\n ");
-          console.log("\x1b[37m","");
+          console.log("\x1b[32m","Print transactions history:\n ","\x1b[37m");
         }
         console.log(value);
       });
@@ -120,6 +118,6 @@ export function updatePin() {
         Customer.securePin = newPin;
         console.log("\x1b[32m",`Success! Customer's new Pin is: ${Customer.securePin}`);
     } else {
-        console.log('\x1b[31m','Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.');
+        console.log('\x1b[31m','Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.',"\x1b[37m");
     }
 }
