@@ -84,7 +84,12 @@ BankAccount.prototype.printTransactions = function () {
 
 export function updatePin() {
     const newPin = prompt("Update Pin: ");
-    return Customer.securePin = newPin;
+    if(newPin.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/)) {
+        Customer.securePin = newPin;
+        console.log(`Customer's new Pin is: ${Customer.securePin}`);
+    } else {
+        console.log("Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.");
+    }
 }
 
 

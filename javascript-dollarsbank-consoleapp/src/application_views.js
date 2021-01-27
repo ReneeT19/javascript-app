@@ -27,7 +27,6 @@ export function accountInfo (choice) {
         case "Update Pin":
         case "3":
             updatePin();
-            console.log(`Customer's new Pin is: ${Customer.securePin}`);
             break;
         case "Withdraw":
         case "4":
@@ -43,17 +42,6 @@ export function accountInfo (choice) {
 }
 }
 
-
-
-
-
-function printTransactions() {
- 
-}
-
-
-
-
 // Account.prototype._isPositive = function(amount) {
 //     const isPositive = amount > 0;
 //     if (!isPositive) {
@@ -62,12 +50,5 @@ function printTransactions() {
 //     }
 //     return true;
 //     }
-// (function(exports) {
-//     function Account () {
-//         this.balance = 0;
-//       }
-//     Account.prototype.balance = function() {
-//         return this.balance;
-//     }
-// })(this);
+
 
