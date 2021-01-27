@@ -6,22 +6,53 @@ const prompt = require('prompt-sync')({sigint: true});
 
 export var Customer = function () {
 
-Customer.customerName = prompt("Customer name: ");
-Customer.customerAddress = prompt("Customer Address: ")
-Customer.contactNumber = prompt("Customer contact number: ")
-Customer.initialDeposit = parseInt(prompt("Enter Initial Deposit in the format: 00.00: "))
-Customer.userId = prompt("User Id: ");
-let checking = true;
-while(checking) {
-Customer.securePin = prompt("Secure Pin: ")
-if(Customer.securePin.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/)) {
-    Customer.verifyPin = prompt("Verify Pin: ")
-    if(Customer.verifyPin == Customer.securePin) {
-        checking = false;
-    } else {console.log("Pin doesn't match.")}
-} else {
-    console.log("Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.")
+let checkName = true;
+while(checkName) {
+    Customer.customerName = prompt("Customer name: ");
+    if(Customer.customerName.match(/^[a-zA-Z\s\-]+$/)) {
+    checkName = false;
+    } else {
+    console.log("\x1b[31m","Name must be only letters, spaces, or dashes")
+    }
 }
+
+Customer.customerAddress = prompt("Customer Address: ")
+
+let checkNumber = true;
+while(checkNumber) {
+    Customer.contactNumber = prompt("Customer contact number: ")
+    if(Customer.contactNumber.match(/^[0-9]+$/)) {
+    checkNumber=false;
+    } else {
+    console.log("\x1b[31m","You must enter numbers only."); 
+    }
+}
+
+let checkDposit = true;
+while(checkDposit){
+    Customer.initialDeposit = parseFloat(prompt("Enter Initial Deposit in the format: 00.00: "));
+    if(/^[+-]?(?:\d*\.)?\d+$/.test(Customer.initialDeposit)){
+    checkDposit = false;
+    } else {
+    console.log('\x1b[31m','You must enter a number in the format: 00.00.')
+    console.log("\x1b[37m","");
+    }
+}
+
+Customer.userId = prompt("User Id: ");
+
+let checkPin = true;
+while(checkPin) {
+    Customer.securePin = prompt("Secure Pin: ")
+    if(Customer.securePin.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/)) {
+    Customer.verifyPin = prompt("Verify Pin: ")
+        if(Customer.verifyPin == Customer.securePin) {
+        checkPin = false;
+        console.log("\x1b[32m","New account created successfully!")
+        } else {console.log("\x1b[31m","Pin doesn't match.")}
+    } else {
+    console.log("\x1b[31m","Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.")
+    }
 }
 }
 
@@ -30,9 +61,9 @@ export var LogIn = function () {
     LogIn.securePin = prompt("Enter your securePin: ");
 
     if(LogIn.userId === Customer.userId && LogIn.securePin === Customer.securePin) {
-        console.log('You logged in successfully.');
+        console.log("\x1b[32m",'You logged in successfully!');
         accountInfo();
-    } else {console.log('Your User Id or Pin is incorrect.')}
+    } else {console.log("\x1b[31m",'Your User Id or Pin is incorrect.')}
 }
 
 export function BankAccount () {
@@ -48,7 +79,7 @@ BankAccount.prototype.deposit = function(amount) {
     amount = parseInt(prompt("Enter amount: "));
     this.balance += amount;
     this.addTransaction(amount);
-    console.log(`Success! Your current balance is: ${this.balance}`);
+    console.log('\x1b[32m',`Success! Your current balance is: ${this.balance}`);
     return amount;
 };
 
@@ -57,10 +88,10 @@ BankAccount.prototype.withdraw = function(amount) {
     if(amount <= this.balance) {
         this.balance -= amount;
         this.addTransaction(amount);
-        console.log(`Success! Your current balance is: ${this.balance}`);
+        console.log("\x1b[32m",`Success! Your current balance is: ${this.balance}`);
         return amount;
     } else {
-    console.log("Unsuccessful! Your current balance is insufficient.");
+    console.log("\x1b[31m","Unsuccessful! Your current balance is insufficient.");
     return this.balance;
     }
 };
@@ -71,14 +102,15 @@ BankAccount.prototype.printTransactions = function () {
       .reverse()
       .forEach(function (value, index) {
         if (index === 0) {
-          console.log("transactions history\n ");
+          console.log("\x1b[32m","Print transactions history\n ");
+          console.log("\x1b[37m","");
         }
         console.log(value);
       });
   };
 
   BankAccount.prototype.addTransaction = function (amount) {
-    let str = "transaction amount " + amount + " current balance: " + this.balance;
+    let str = "The transaction amount is: " + amount + " and the current balance: " + this.balance;
     this.record.push(str);
   };
 
@@ -86,62 +118,8 @@ export function updatePin() {
     const newPin = prompt("Update Pin: ");
     if(newPin.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/)) {
         Customer.securePin = newPin;
-        console.log(`Customer's new Pin is: ${Customer.securePin}`);
+        console.log("\x1b[32m",`Success! Customer's new Pin is: ${Customer.securePin}`);
     } else {
-        console.log("Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.");
+        console.log('\x1b[31m','Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.');
     }
 }
-
-
-// properties = [
-//     {
-//         name: 'customer_name',
-//         validator: /^[a-zA-Z\s\-]+$/,
-//         warning: 'Name must be only letters, spaces, or dashes'
-//     },
-//     {
-//         name: 'customer_address'
-//     },
-//     {
-//         name: 'customer_contact_number',
-//         validator: /^[0-9]+$/,
-//         warning: 'Username must be only letters, spaces, or dashes'
-//     },
-//     {
-//         name: 'userId',
-//         validator: /^[a-zA-Z\s\-]+$/,
-//         warning: 'Username must be only letters, spaces, or dashes'
-//     },
-//     {
-//         name: 'secure_pin',
-//         hidden: true,
-//         validator: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/,
-//         warning: 'Pin must have at least one uppercase, one lowercase, one number, and one special character and minimum 8 characters'
-//     },
-//     {
-//         name: 'verify_pin',
-//         hidden: true
-//     }
-// ];
-
-// prompt.start();
-
-// prompt.get(properties, function (err, customer) {
-    
-//     if (err) { return onErr(err); }
-//     console.log('Command-line input received:');
-//     console.log('  Customer Name: ' + customer.customer_name);
-//     console.log('  Customer Address: ' + customer.customer_address);
-//     console.log('  Customer Address: ' + customer.customer_contact_number);
-//     console.log('  User Id: ' + customer.userId);
-//     console.log('  Secure Pin: ' + customer.secure_pin);
-//     console.log('  Verify Pin: ' + customer.verify_pin);
-
-//     // var customer = new Object();
-
-// });
-
-// function onErr(err) {
-//     console.log(err);
-//     return 1;
-// }

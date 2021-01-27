@@ -7,8 +7,9 @@ const prompt = require('prompt-sync')({sigint: true});
 export function greetingATM (choice) {
     let running = true;
     while(running) {
-    console.log("DOLLARSBANK ATM Welcomes You!!")
-    choice = prompt('Enter a valid choice (1> Transaction 2> Open New Account)');
+    console.log('\x1b[36m%s\x1b[0m', "--------------" + "\n" + "DOLLARSBANK ATM Welcomes You!!" + "\n" + "--------------");
+    console.log("Enter a valid choice: ");
+    choice = prompt('1> Transaction 2> Open New Account')
     switch(choice) {
         case "Transaction":
         case "1":
@@ -19,7 +20,7 @@ export function greetingATM (choice) {
             Customer();
             break;
         default:
-            console.log("Incorrect command. Please enter the numeric value or string corresponding with the available commands.")
+            console.log("\x1b[31m","Incorrect command. Please enter the numeric value or string corresponding with the available commands.")
     }
 }
 }
