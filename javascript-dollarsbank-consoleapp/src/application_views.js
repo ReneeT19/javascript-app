@@ -1,5 +1,5 @@
 import { createRequire } from 'module';
-import {BankAccount} from './customer_account.js';
+import {BankAccount, logOut} from './customer_account.js';
 import {updatePin} from './customer_account.js';
 
 const require = createRequire(import.meta.url);
@@ -14,13 +14,13 @@ export function accountInfo (choice) {
     choice = prompt();
     if(choice=="yes" || choice=="Yes" || choice=="YES") {
     console.log('\x1b[36m%s\x1b[0m', "----------------" + "\n" + "Transaction Menu" + "\n" + "----------------")
-    console.log('1> Account Balance Check\n2> Print Transactions\n3> Update Pin\n4> Withdraw Amount\n5> Deposit Amount')
+    console.log('Please choose an option:\n1> Account Balance Check\n2> Print Transactions\n3> Update Pin\n4> Withdraw Amount\n5> Deposit Amount\n6> Log Out')
     choice = prompt();
     switch(choice) {
         case "Account Balance Check":
         case "1":
             account.checkBalance();
-            console.log("\x1b[32m",`The current balance is: ${account.balance}`);
+            console.log("\x1b[32m",`The current balance is: $${account.balance}`);
             break;
         case "Print Transactions":
         case "2":
@@ -38,6 +38,9 @@ export function accountInfo (choice) {
         case "5":
             account.deposit();
             break;
+        case "Log Out":
+        case "6":
+            logOut();
         default:
             console.log("\x1b[31m","Incorrect command. Please enter the numeric value or string corresponding with the available commands.","\x1b[37m")
     }

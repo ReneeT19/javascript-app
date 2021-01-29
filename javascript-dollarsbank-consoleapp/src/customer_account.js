@@ -21,16 +21,16 @@ Customer.customerAddress = prompt("Customer Address: ")
 let checkNumber = true;
 while(checkNumber) {
     Customer.contactNumber = prompt("Customer contact number: ")
-    if(Customer.contactNumber.match(/^[0-9]+$/)) {
+    if(Customer.contactNumber.match(/^[0-9]+$/) && Customer.contactNumber.length ==10) {
     checkNumber=false;
     } else {
-    console.log("\x1b[31m","You must enter numbers only.","\x1b[37m"); 
+    console.log("\x1b[31m","You must enter numbers only and the contact number should be 10 digits.","\x1b[37m"); 
     }
 }
 
 let checkDposit = true;
 while(checkDposit){
-    Customer.initialDeposit = parseFloat(prompt("Enter Initial Deposit (in the format: 00.00): "));
+    Customer.initialDeposit = parseFloat(prompt("Enter Initial Deposit (in the format: 00.00): $"));
     if(/^[+-]?(?:\d*\.)?\d+$/.test(Customer.initialDeposit)){
     checkDposit = false;
     } else {
@@ -47,7 +47,7 @@ while(checkPin) {
     Customer.verifyPin = prompt("Verify Pin: ")
         if(Customer.verifyPin == Customer.securePin) {
         checkPin = false;
-        console.log("\x1b[32m","New account created successfully!")
+        console.log("\x1b[32m","New account created successfully! Your userId is " + Customer.userId + " and your Pin is " + Customer.securePin + ".");
         } else {console.log("\x1b[31m","Pin doesn't match.","\x1b[37m")}
     } else {
     console.log("\x1b[31m","Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.","\x1b[37m")
@@ -62,7 +62,7 @@ export var LogIn = function () {
     if(LogIn.userId === Customer.userId && LogIn.securePin === Customer.securePin) {
         console.log("\x1b[32m",'You logged in successfully!\n');
         accountInfo();
-    } else {console.log("\x1b[31m",'Your User Id or Pin is incorrect.')}
+    } else {console.log("\x1b[31m",'Your User Id or Pin is incorrect.',"\x1b[37m")}
 }
 
 export function BankAccount () {
@@ -75,19 +75,19 @@ BankAccount.prototype.checkBalance = function() {
 }
 
 BankAccount.prototype.deposit = function(amount) {
-    amount = parseInt(prompt("Enter amount: "));
+    amount = parseInt(prompt("Enter amount: $"));
     this.balance += amount;
     this.addTransaction(amount);
-    console.log('\x1b[32m',`Success! Your current balance is: ${this.balance}`);
+    console.log('\x1b[32m',`Success! Your current balance is: $${this.balance}`);
     return amount;
 };
 
 BankAccount.prototype.withdraw = function(amount) {
-    amount = parseInt(prompt("Enter amount: "));
+    amount = parseInt(prompt("Enter amount: $"));
     if(amount <= this.balance) {
         this.balance -= amount;
         this.addTransaction(amount);
-        console.log("\x1b[32m",`Success! Your current balance is: ${this.balance}`);
+        console.log("\x1b[32m",`Success! Your current balance is: $${this.balance}`);
         return amount;
     } else {
     console.log("\x1b[31m","Unsuccessful! Your current balance is insufficient.","\x1b[37m");
@@ -108,7 +108,7 @@ BankAccount.prototype.printTransactions = function () {
   };
 
   BankAccount.prototype.addTransaction = function (amount) {
-    let str = "The transaction amount is: " + amount + " and the current balance: " + this.balance;
+    let str = "The transaction amount is: $" + amount + " and the current balance: $" + this.balance;
     this.record.push(str);
   };
 
@@ -120,4 +120,9 @@ export function updatePin() {
     } else {
         console.log('\x1b[31m','Your pin must be at least 8 characters with at least one uppercase, one lowercase, and one number.',"\x1b[37m");
     }
+}
+
+export function logOut() {
+    console.log("\x1b[32m","You successfully logged out.");
+    process.exit(1);
 }
